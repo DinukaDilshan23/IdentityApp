@@ -34,6 +34,7 @@ internal class Program
 
         // be able to inject JWTServices class inside our Controllers
         builder.Services.AddScoped<JWTService>();
+        builder.Services.AddScoped<EmailService>();
 
         builder.Services.AddIdentityCore<User>(options =>
         {
