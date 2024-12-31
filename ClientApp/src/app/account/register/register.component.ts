@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
+
   constructor(private accountService: AccountService,
     private sharedService: SharedService,
     private formBuilder: FormBuilder,
@@ -25,11 +26,10 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl('/');
           }
         }
-    })
-  }
+      })
+    }
 
   ngOnInit(): void {
-    console.log('RegisterComponent initialized');
     this.initializeForm();
   }
 
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.pattern('^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
     })
   }
 
@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit {
         next: (response: any) => {
           this.sharedService.showNotification(true, response.value.title, response.value.message);
           this.router.navigateByUrl('/account/login');
-          console.log(response);
         },
         error: error => {
           if (error.error.errors) {
@@ -62,6 +61,6 @@ export class RegisterComponent implements OnInit {
         }
       })
     }
+    
   }
-
 }

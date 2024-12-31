@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from '../account.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from '../account.service';
 import { take } from 'rxjs';
 import { User } from 'src/app/shared/models/account/user';
 
@@ -11,7 +11,6 @@ import { User } from 'src/app/shared/models/account/user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
@@ -20,33 +19,32 @@ export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute) { 
       this.accountService.user$.pipe(take(1)).subscribe({
-      next: (user: User | null) => {
-        if (user) {
-          this.router.navigateByUrl('/');
-        } else {
-          this.activatedRoute.queryParamMap.subscribe({
-            next: (params: any) => {
-              if (params) {
-                this.returnUrl = params.get('returnUrl');
+        next: (user: User | null) => {
+          if (user) {
+            this.router.navigateByUrl('/');
+          } else {
+            this.activatedRoute.queryParamMap.subscribe({
+              next: (params: any) => {
+                if (params) {
+                  this.returnUrl = params.get('returnUrl');
+                }
               }
-            }
-          })
+            })
+          }
         }
-      }
       })
     }
 
   ngOnInit(): void {
-    console.log('RegisterComponent initialized');
     this.initializeForm();
   }
 
   initializeForm() {
     this.loginForm = this.formBuilder.group({
-      userName: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
     })
   }
 
@@ -60,7 +58,7 @@ export class LoginComponent implements OnInit {
           if (this.returnUrl) {
             this.router.navigateByUrl(this.returnUrl);
           } else {
-            this.router.navigateByUrl('/')
+            this.router.navigateByUrl('/');
           }
         },
         error: error => {
@@ -72,5 +70,9 @@ export class LoginComponent implements OnInit {
         }
       })
     }
+  }
+
+  resendEmailConfirmationLink() {
+    this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
   }
 }

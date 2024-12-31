@@ -7,7 +7,8 @@ import { AccountService } from '../account/account.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor (public accountService: AccountService) { }
+
+  constructor(public accountService: AccountService) { }
 
   logout() {
     this.accountService.logout();

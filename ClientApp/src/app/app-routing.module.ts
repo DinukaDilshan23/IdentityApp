@@ -16,10 +16,10 @@ const routes: Routes = [
     ]
   },
   //{ path: 'play', component: PlayComponent },
-  // Implementing lazy loading by the following format
+  // Implenting lazy loading by the following format
   { path: 'account', loadChildren: () => import('./account/account.module').then(module => module.AccountModule) },
   { path: 'not-found', component: NotFoundComponent },
-  { path: '**', component:NotFoundComponent, pathMatch: 'full' }
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
