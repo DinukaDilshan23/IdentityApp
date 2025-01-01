@@ -1,1 +1,5 @@
-console.log("Hello World!")
+export interface User {
+  firstName: string;
+  lastName: string;
+  jwt: string;
+}
