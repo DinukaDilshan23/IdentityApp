@@ -13,7 +13,6 @@
     <Folder Include="src\app\shared\directives\" />
     <Folder Include="src\app\shared\guards\" />
     <Folder Include="src\app\shared\interceptors\" />
-    <Folder Include="src\app\shared\models\account\" />
     <Folder Include="src\app\shared\models\admin\" />
     <Folder Include="ssl\" />
   </ItemGroup>
