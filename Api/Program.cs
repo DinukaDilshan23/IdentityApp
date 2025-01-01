@@ -106,10 +106,10 @@ builder.Services.AddAuthorization(opt =>
     opt.AddPolicy("AdminAndManagerPolicy", policy => policy.RequireRole("Admin").RequireRole("Manager"));
     opt.AddPolicy("AllRolePolicy", policy => policy.RequireRole("Admin", "Manager", "Player"));
 
-    opt.AddPolicy("AdminEmailPolicy", policy => policy.RequireClaim(ClaimTypes.Email, "admin@example.com"));
-    opt.AddPolicy("MillerSurnamePolicy", policy => policy.RequireClaim(ClaimTypes.Surname, "miller"));
-    opt.AddPolicy("ManagerEmailAndWilsonSurnamePolicy", policy => policy.RequireClaim(ClaimTypes.Surname, "wilson")
-        .RequireClaim(ClaimTypes.Email, "manager@example.com"));
+    opt.AddPolicy("AdminEmailPolicy", policy => policy.RequireClaim(ClaimTypes.Email, "admin@gmail.com"));
+    opt.AddPolicy("DilshanSurnamePolicy", policy => policy.RequireClaim(ClaimTypes.Surname, "dilshan"));
+    opt.AddPolicy("ManagerEmailAndDinukaSurnamePolicy", policy => policy.RequireClaim(ClaimTypes.Surname, "dinuka")
+        .RequireClaim(ClaimTypes.Email, "manager@gmail.com"));
     opt.AddPolicy("VIPPolicy", policy => policy.RequireAssertion(context => SD.VIPPolicy(context)));
 });
 

@@ -44,9 +44,9 @@ namespace Api.Services
                 var admin = new User
                 {
                     FirstName = "admin",
-                    LastName = "jackson",
-                    UserName = "admin@example.com",
-                    Email = "admin@example.com",
+                    LastName = "dinuka",
+                    UserName = "admin@gmail.com",
+                    Email = "admin@gmail.com",
                     EmailConfirmed = true
                 };
                 await _userManager.CreateAsync(admin, "123456");
@@ -60,9 +60,9 @@ namespace Api.Services
                 var manager = new User
                 {
                     FirstName = "manager",
-                    LastName = "wilson",
-                    UserName = "manager@example.com",
-                    Email = "manager@example.com",
+                    LastName = "dinuka",
+                    UserName = "manager@gmail.com",
+                    Email = "manager@gmail.com",
                     EmailConfirmed = true
                 };
                 await _userManager.CreateAsync(manager, "123456");
@@ -76,9 +76,9 @@ namespace Api.Services
                 var player = new User
                 {
                     FirstName = "player",
-                    LastName = "miller",
-                    UserName = "player@example.com",
-                    Email = "player@example.com",
+                    LastName = "dilshan",
+                    UserName = "player@gmail.com",
+                    Email = "player@gmail.com",
                     EmailConfirmed = true
                 };
                 await _userManager.CreateAsync(player, "123456");
@@ -92,9 +92,9 @@ namespace Api.Services
                 var vipplayer = new User
                 {
                     FirstName = "vipplayer",
-                    LastName = "tomson",
-                    UserName = "vipplayer@example.com",
-                    Email = "vipplayer@example.com",
+                    LastName = "dinuka",
+                    UserName = "vipplayer@gmail.com",
+                    Email = "vipplayer@gmail.com",
                     EmailConfirmed = true
                 };
                 await _userManager.CreateAsync(vipplayer, "123456");

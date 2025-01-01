@@ -109,18 +109,19 @@ namespace Api.Controllers
             return Ok("admin email policy");
         }
 
-        [HttpGet("miller-surname-policy")]
-        [Authorize(policy: "MillerSurnamePolicy")]
+        [HttpGet("dilshan-surname-policy")]
+        [Authorize(policy: "Dilshan" +
+            "SurnamePolicy")]
         public IActionResult MillerSurnamePolicy()
         {
-            return Ok("miller surname policy");
+            return Ok("dilshan surname policy");
         }
 
-        [HttpGet("manager-email-and-wilson-surname-policy")]
-        [Authorize(policy: "ManagerEmailAndWilsonSurnamePolicy")]
+        [HttpGet("manager-email-and-dinuka-surname-policy")]
+        [Authorize(policy: "ManagerEmailAndDinukaSurnamePolicy")]
         public IActionResult ManagerEmailAndWilsonSurnamePolicy()
         {
-            return Ok("manager email and wilson surname policy");
+            return Ok("manager email and dinuka surname policy");
         }
 
         [HttpGet("vip-policy")]
