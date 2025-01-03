@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{6
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd", "FrontEnd\FrontEnd.esproj", "{34408296-650B-489C-91B5-C177B53417F7}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ClientAppv2", "ClientAppv2\ClientAppv2.esproj", "{43951730-CECC-4895-8F1D-039099BE8E5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,12 @@ Global
 		{34408296-650B-489C-91B5-C177B53417F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34408296-650B-489C-91B5-C177B53417F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34408296-650B-489C-91B5-C177B53417F7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

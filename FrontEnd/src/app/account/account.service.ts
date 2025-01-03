@@ -8,6 +8,8 @@ import { ReplaySubject, map, of, pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmEmail } from '../shared/models/account/confirmEmail';
 import { ResetPassword } from '../shared/models/account/resetPassword';
+import { RegisterWithThirdPartyComponent } from './register-with-third-party/register-with-third-party.component';
+import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +53,10 @@ export class AccountService {
 
   register(model: Register) {
     return this.http.post(`${environment.appUrl}/api/account/register`, model);
+  }
+
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.http.post(`${environment.appUrl}/api/account/register-with-third-party`, model);
   }
 
   confirmEmail(model: ConfirmEmail) {

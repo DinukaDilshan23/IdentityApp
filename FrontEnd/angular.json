@@ -61,6 +61,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "sslCert": "ssl/localhost.pem",
+            "sslKey": "ssl/localhost-key.pem",
+            "ssl": true,
+            "port":  9523
+          },
           "configurations": {
             "production": {
               "browserTarget": "FrontEnd:build:production"
@@ -71,6 +77,9 @@
           },
           "defaultConfiguration": "development",
           "options": {
+            "sslCert": "ssl/localhost.pem",
+            "sslKey": "ssl/localhost-key.pem",
+            "ssl": true,
             "port": 9523
           }
         },
