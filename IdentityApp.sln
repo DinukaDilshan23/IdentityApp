@@ -9,6 +9,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd", "FrontEnd\FrontE
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ClientAppv2", "ClientAppv2\ClientAppv2.esproj", "{43951730-CECC-4895-8F1D-039099BE8E5B}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ClientAppV3", "ClientAppV3\ClientAppV3.esproj", "{6A7A5164-DF29-4128-B230-D3C112BCA4C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,12 @@ Global
 		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43951730-CECC-4895-8F1D-039099BE8E5B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A7A5164-DF29-4128-B230-D3C112BCA4C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
