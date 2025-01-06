@@ -7,6 +7,7 @@ import { User } from '../shared/models/account/user';
 import { map, of, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmEmail } from '../shared/models/account/confirmEmail';
+import { ResetPassword } from '../shared/models/account/resetPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,14 @@ export class AccountService {
 
   confirmEmail(model: ConfirmEmail) {
     return this.http.put(`${environment.appUrl}/api/account/confirm-email`, model);
+  }
+
+  forgotUsernameOrPassword(email: string) {
+    return this.http.post(`${environment.appUrl}/api/account/forgot-username-or-password/${email}`, {});
+  }
+
+  resetPassword(model: ResetPassword) {
+    return this.http.put(`${environment.appUrl}/api/account/reset-password`, model);
   }
 
   resendEmailConfirmationLink(email: string) {
