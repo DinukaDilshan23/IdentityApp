@@ -76,6 +76,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 6840,
+            "sslCert": "ssl/localhost.pem",
+            "sslKey": "ssl/localhost-key.pem",
+            "ssl": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "ClientAppV3:build:production"
@@ -86,7 +92,10 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "port": 6840
+            "port": 6840,
+            "sslCert": "ssl/localhost.pem",
+            "sslKey": "ssl/localhost-key.pem",
+            "ssl": true
           }
         },
         "extract-i18n": {

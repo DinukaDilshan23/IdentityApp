@@ -63,6 +63,12 @@ namespace Api.Controllers
             if (user.EmailConfirmed == false) return Unauthorized("Please confirm your email.");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if(result.IsLockedOut)
+            {
+                return Unauthorized(string.Format("Your account has been locked. You should wait until {0} (UTC time) to be able to login", user.LockoutEnd));
+            }
+
             if (!result.Succeeded) return Unauthorized("Invalid username or password");
 
             return await CreateApplicationUserDto(user);

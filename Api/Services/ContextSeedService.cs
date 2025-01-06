@@ -45,8 +45,8 @@ namespace Api.Services
                 {
                     FirstName = "admin",
                     LastName = "dinuka",
-                    UserName = "admin@gmail.com",
-                    Email = "admin@gmail.com",
+                    UserName = SD.AdminUserName,
+                    Email = SD.AdminUserName,
                     EmailConfirmed = true
                 };
                 await _userManager.CreateAsync(admin, "123456");
