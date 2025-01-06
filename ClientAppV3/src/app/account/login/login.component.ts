@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { take } from 'rxjs';
-import { User } from '../../shared/models/user';
+import { User } from '../../shared/models/account/user';
 
 @Component({
   selector: 'app-login',

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Register } from '../shared/models/register';
+import { Register } from '../shared/models/account/register';
 import { environment } from '../../environments/environment.development';
-import { Login } from '../shared/models/login';
-import { User } from '../shared/models/user';
+import { Login } from '../shared/models/account/login';
+import { User } from '../shared/models/account/user';
 import { map, of, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ConfirmEmail } from '../shared/models/account/confirmEmail';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,14 @@ export class AccountService {
 
   register(model: Register) {
     return this.http.post(`${environment.appUrl}/api/account/register`, model);
+  }
+
+  confirmEmail(model: ConfirmEmail) {
+    return this.http.put(`${environment.appUrl}/api/account/confirm-email`, model);
+  }
+
+  resendEmailConfirmationLink(email: string) {
+    return this.http.post(`${environment.appUrl}/api/account/resend-email-confirmation-link/${email}`, {});
   }
 
   getJWT() {
