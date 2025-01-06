@@ -75,46 +75,46 @@ namespace Api.Controllers
         }
 
         [HttpPost("login-with-third-party")]
-        //public async Task<ActionResult<UserDto>> LoginWithThirdParty(LoginWithExternalDto model)
-        //{
-        //    if (model.Provider.Equals(SD.Facebook))
-        //    {
-        //        try
-        //        {
-        //            if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-        //            {
-        //                return Unauthorized("Unable to login with facebook");
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return Unauthorized("Unable to login with facebook");
-        //        }
-        //    }
-        //    else if (model.Provider.Equals(SD.Google))
-        //    {
-        //        try
-        //        {
-        //            if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-        //            {
-        //                return Unauthorized("Unable to login with google");
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return Unauthorized("Unable to login with google");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("Invalid provider");
-        //    }
+        public async Task<ActionResult<UserDto>> LoginWithThirdParty(LoginWithExternalDto model)
+        {
+            if (model.Provider.Equals(SD.Facebook))
+            {
+                try
+                {
+                    if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to login with facebook");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to login with facebook");
+                }
+            }
+            else if (model.Provider.Equals(SD.Google))
+            {
+                try
+                {
+                    //if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    //{
+                    //    return Unauthorized("Unable to login with google");
+                    //}
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to login with google");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid provider");
+            }
 
-        //    var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
-        //    if (user == null) return Unauthorized("Unable to find your account");
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
+            if (user == null) return Unauthorized("Unable to find your account");
 
-        //    return await CreateApplicationUserDto(user);
-        //}
+            return await CreateApplicationUserDto(user);
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto model)
@@ -152,58 +152,58 @@ namespace Api.Controllers
 
         }
 
-        //[HttpPost("register-with-third-party")]
-        //public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
-        //{
-        //    if (model.Provider.Equals(SD.Facebook))
-        //    {
-        //        try
-        //        {
-        //            if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-        //            {
-        //                return Unauthorized("Unable to register with facebook");
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return Unauthorized("Unable to register with facebook");
-        //        }
-        //    }
-        //    else if (model.Provider.Equals(SD.Google))
-        //    {
-        //        try
-        //        {
-        //            if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-        //            {
-        //                return Unauthorized("Unable to register with google");
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return Unauthorized("Unable to register with google");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("Invalid provider");
-        //    }
+        [HttpPost("register-with-third-party")]
+        public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
+        {
+            if (model.Provider.Equals(SD.Facebook))
+            {
+                try
+                {
+                    if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to register with facebook");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to register with facebook");
+                }
+            }
+            else if (model.Provider.Equals(SD.Google))
+            {
+                try
+                {
+                    //if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    //{
+                    //    return Unauthorized("Unable to register with google");
+                    //}
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to register with google");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid provider");
+            }
 
-        //    var user = await _userManager.FindByNameAsync(model.UserId);
-        //    if (user != null) return BadRequest(string.Format("You have an account already. Please login with your {0}", model.Provider));
+            var user = await _userManager.FindByNameAsync(model.UserId);
+            if (user != null) return BadRequest(string.Format("You have an account already. Please login with your {0}", model.Provider));
 
-        //    var userToAdd = new User
-        //    {
-        //        FirstName = model.FirstName.ToLower(),
-        //        LastName = model.LastName.ToLower(),
-        //        UserName = model.UserId,
-        //        Provider = model.Provider,
-        //    };
+            var userToAdd = new User
+            {
+                FirstName = model.FirstName.ToLower(),
+                LastName = model.LastName.ToLower(),
+                UserName = model.UserId,
+                Provider = model.Provider,
+            };
 
-        //    var result = await _userManager.CreateAsync(userToAdd);
-        //    if (!result.Succeeded) return BadRequest(result.Errors);
+            var result = await _userManager.CreateAsync(userToAdd);
+            if (!result.Succeeded) return BadRequest(result.Errors);
 
-        //    return await CreateApplicationUserDto(userToAdd);
-        //}
+            return await CreateApplicationUserDto(userToAdd);
+        }
 
         [HttpPut("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(ConfirmEmailDto model)
@@ -358,18 +358,18 @@ namespace Api.Controllers
             return await _emailService.SendEmailAsync(emailSend);
         }
 
-        //private async Task<bool> FacebookValidatedAsync(string accessToken, string userId)
-        //{
-        //    var facebookKeys = _config["Facebook:AppId"] + "|" + _config["Facebook:AppSecret"];
-        //    var fbResult = await _facebookHttpClient.GetFromJsonAsync<FacebookResultDto>($"debug_token?input_token={accessToken}&access_token={facebookKeys}");
+        private async Task<bool> FacebookValidatedAsync(string accessToken, string userId)
+        {
+            var facebookKeys = _config["Facebook:AppId"] + "|" + _config["Facebook:AppSecret"];
+            var fbResult = await _facebookHttpClient.GetFromJsonAsync<FacebookResultDto>($"debug_token?input_token={accessToken}&access_token={facebookKeys}");
 
-        //    if (fbResult == null || fbResult.Data.Is_Valid == false || !fbResult.Data.User_Id.Equals(userId))
-        //    {
-        //        return false;
-        //    }
+            if (fbResult == null || fbResult.Data.Is_Valid == false || !fbResult.Data.User_Id.Equals(userId))
+            {
+                return false;
+            }
 
-        //    return true;
-        //}
+            return true;
+        }
 
         //private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
         //{

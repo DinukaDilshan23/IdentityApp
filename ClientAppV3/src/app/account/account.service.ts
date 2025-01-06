@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+  import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Register } from '../shared/models/account/register';
 import { environment } from '../../environments/environment.development';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ConfirmEmail } from '../shared/models/account/confirmEmail';
 import { ResetPassword } from '../shared/models/account/resetPassword';
 import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
+import { LoginWithExternal } from '../shared/models/account/loginWithExternal';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,16 @@ export class AccountService {
           }
         })
       );
+  }
+
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.http.post<User>(`${environment.appUrl}/api/account/login-with-third-party`, model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user);
+        }
+      })
+    )
   }
 
   logout() {

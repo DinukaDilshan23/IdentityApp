@@ -69,6 +69,7 @@ export class RegisterComponent implements OnInit {
   registerWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
+        console.log(fbResult);
         const accessToken = fbResult.authResponse.accessToken;
         const userId = fbResult.authResponse.userID;
         this.router.navigateByUrl(`/account/register/third-party/facebook?access_token=${accessToken}&userId=${userId}`);
