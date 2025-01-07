@@ -2,6 +2,8 @@
 using Api.Models;
 using Api.Services;
 //using Google.Apis.Auth;
+
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -95,10 +97,10 @@ namespace Api.Controllers
             {
                 try
                 {
-                    //if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-                    //{
-                    //    return Unauthorized("Unable to login with google");
-                    //}
+                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to login with google");
+                    }
                 }
                 catch (Exception)
                 {
@@ -173,10 +175,10 @@ namespace Api.Controllers
             {
                 try
                 {
-                    //if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-                    //{
-                    //    return Unauthorized("Unable to register with google");
-                    //}
+                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to register with google");
+                    }
                 }
                 catch (Exception)
                 {
@@ -371,39 +373,39 @@ namespace Api.Controllers
             return true;
         }
 
-        //private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
-        //{
-        //    var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
+        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
+        {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
 
-        //    if (!payload.Audience.Equals(_config["Google:ClientId"]))
-        //    {
-        //        return false;
-        //    }
+            if (!payload.Audience.Equals(_config["Google:ClientId"]))
+            {
+                return false;
+            }
 
-        //    if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
-        //    {
-        //        return false;
-        //    }
+            if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
+            {
+                return false;
+            }
 
-        //    if (payload.ExpirationTimeSeconds == null)
-        //    {
-        //        return false;
-        //    }
+            if (payload.ExpirationTimeSeconds == null)
+            {
+                return false;
+            }
 
-        //    DateTime now = DateTime.Now.ToUniversalTime();
-        //    DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
-        //    if (now > expiration)
-        //    {
-        //        return false;
-        //    }
+            DateTime now = DateTime.Now.ToUniversalTime();
+            DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
+            if (now > expiration)
+            {
+                return false;
+            }
 
-        //    if (!payload.Subject.Equals(userId))
-        //    {
-        //        return false;
-        //    }
+            if (!payload.Subject.Equals(userId))
+            {
+                return false;
+            }
 
-        //    return true;
-        //}
+            return true;
+        }
         #endregion
     }
 }

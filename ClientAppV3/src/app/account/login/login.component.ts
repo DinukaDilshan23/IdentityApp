@@ -7,8 +7,8 @@ import { User } from '../../../app/shared/models/account/user';
 import { SharedService } from '../../../app/shared/shared.service';
 import { LoginWithExternal } from '../../../app/shared/models/account/loginWithExternal';
 import { DOCUMENT } from '@angular/common';
-//import { CredentialResponse } from 'google-one-tap';
-//import jwt_decode from 'jwt-decode';
+import { CredentialResponse } from 'google-one-tap';
+import { jwtDecode } from 'jwt-decode';
 declare const FB: any;
 
 @Component({
@@ -18,7 +18,7 @@ declare const FB: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- // @ViewChild('googleButton', { static: true }) googleButton: ElementRef = new ElementRef({});
+  @ViewChild('googleButton', { static: true }) googleButton: ElementRef = new ElementRef({});
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
@@ -49,13 +49,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.initiazeGoogleButton();
+    this.initiazeGoogleButton();
     this.initializeForm();
   }
 
   ngAfterViewInit() {
     const script1 = this._renderer2.createElement('script');
-    //script1.src = 'https://accounts.google.com/gsi/client';
+    script1.src = 'https://accounts.google.com/gsi/client';
     script1.async = 'true';
     script1.defer = 'true';
     this._renderer2.appendChild(this._document.body, script1);
@@ -120,36 +120,36 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
   }
 
-  //private initiazeGoogleButton() {
-  //  (window as any).onGoogleLibraryLoad = () => {
-      // @ts-ignore
-      //google.accounts.id.initialize({
-      //  client_id: '473473414260-dvfr4pp0jaipd3h86i283q3te3c6kp8m.apps.googleusercontent.com',
-      //  callback: this.googleCallBack.bind(this),
-      //  auto_select: false,
-      //  cancel_on_tap_outside: true
-      //});
-      // @ts-ignore
-    //  google.accounts.id.renderButton(
-    //    this.googleButton.nativeElement,
-    //    { size: 'medium', shape: 'rectangular', text: 'signin_with', logo_alignment: 'center' }
-    //  );
-    //};
+  private initiazeGoogleButton() {
+    (window as any).onGoogleLibraryLoad = () => {
+       //@ts-ignore
+      google.accounts.id.initialize({
+        client_id: '572640658730-9g7d03ltveca1ouue051r8f46d98ev6j.apps.googleusercontent.com',
+        callback: this.googleCallBack.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+       //@ts-ignore
+      google.accounts.id.renderButton(
+        this.googleButton.nativeElement,
+        { size: 'medium', shape: 'rectangular', text: 'signin_with', logo_alignment: 'center' }
+      );
+    };
   }
 
-    //private async googleCallBack(response: CredentialResponse) {
-    //  const decodedToken: any = jwt_decode(response.credential);
-    //  this.accountService.loginWithThirdParty(new LoginWithExternal(response.credential, decodedToken.sub, "google"))
-    //    .subscribe({
-    //      next: _ => {
-    //        if (this.returnUrl) {
-    //          this.router.navigateByUrl(this.returnUrl);
-    //        } else {
-    //          this.router.navigateByUrl('/');
-    //        }
-    //      }, error: error => {
-    //        this.sharedService.showNotification(false, "Failed", error.error);
-    //      }
-    //    })
-    //}
-//}
+    private async googleCallBack(response: CredentialResponse) {
+      const decodedToken: any = jwtDecode(response.credential);
+      this.accountService.loginWithThirdParty(new LoginWithExternal(response.credential, decodedToken.sub, "google"))
+        .subscribe({
+          next: _ => {
+            if (this.returnUrl) {
+              this.router.navigateByUrl(this.returnUrl);
+            } else {
+              this.router.navigateByUrl('/');
+            }
+          }, error: error => {
+            this.sharedService.showNotification(false, "Failed", error.error);
+          }
+        })
+    }
+}
