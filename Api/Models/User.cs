@@ -10,7 +10,8 @@ namespace Api.Models
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public String LastName { get; set; }
+        public string LastName { get; set; }
+        public string ExternalUserName { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public string Provider {  get; set; }
     }

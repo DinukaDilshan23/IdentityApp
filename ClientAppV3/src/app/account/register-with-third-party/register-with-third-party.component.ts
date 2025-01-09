@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from '../../../app/shared/models/account/user';
-import { RegisterWithExternal } from '../../../app/shared/models/account/registerWithExternal';
+import { RegisterWithExternalGoogle } from '../../shared/models/account/registerWithExternalGoogle';
+import { RegisterWithExternalFacebook } from '../../shared/models/account/registerWithExternalFacebook';
 
 @Component({
   selector: 'app-register-with-third-party',
@@ -19,7 +20,7 @@ export class RegisterWithThirdPartyComponent implements OnInit {
   access_token: string | null = null;
   userId: string | null = null;
   email: string | null = null;
-  //userName: string | null = null;
+  userName: string | null = null;
   errorMessages: string[] = [];
 
   constructor(private accountService: AccountService,
@@ -39,6 +40,7 @@ export class RegisterWithThirdPartyComponent implements OnInit {
               this.access_token = params.get('access_token');
               this.userId = params.get('userId');
               this.email = params.get('email');
+              this.userName = params.get('userName');
 
               if (this.provider && this.access_token && this.userId &&
                 (this.provider === 'facebook' || this.provider === 'google')) {
@@ -64,13 +66,32 @@ export class RegisterWithThirdPartyComponent implements OnInit {
   register() {
     this.submitted = true;
     this.errorMessages = [];
+    if (this.provider == "facebook") {
+      if (this.registerForm.valid && this.userId && this.access_token) {
+        const firstName = this.registerForm.get('firstName')?.value;
+        const lastName = this.registerForm.get('lastName')?.value;
 
-    if (this.registerForm.valid && this.userId && this.access_token && this.provider && this.email /* && this.userName*/) {
+        const model = new RegisterWithExternalFacebook(firstName, lastName, this.userId, this.access_token, this.provider);
+        this.accountService.registerWithThirdPartyFacebook(model).subscribe({
+          next: _ => {
+            this.router.navigateByUrl('/');
+          }, error: error => {
+            if (error.error.errors) {
+              this.errorMessages = error.error.errors;
+            } else {
+              this.errorMessages.push(error.error);
+            }
+          }
+        })
+      }
+    }
+
+    if (this.registerForm.valid && this.userId && this.access_token && this.provider && this.email && this.userName) {
       const firstName = this.registerForm.get('firstName')?.value;
       const lastName = this.registerForm.get('lastName')?.value;
 
-      const model = new RegisterWithExternal(firstName, lastName, this.userId, this.access_token, this.provider, this.email /*, this.userName*/);
-      this.accountService.registerWithThirdParty(model).subscribe({
+      const model = new RegisterWithExternalGoogle(firstName, lastName, this.userId, this.access_token, this.provider, this.email, this.userName);
+      this.accountService.registerWithThirdPartyGoogle(model).subscribe({
         next: _ => {
           this.router.navigateByUrl('/');
         }, error: error => {

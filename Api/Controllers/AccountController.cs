@@ -175,7 +175,7 @@ namespace Api.Controllers
                 try
                 {
                    // var abc = await GoogleValidatedAsync(model.AccessToken, model.UserId);
-                    if (!await GoogleValidatedAsync(model.AccessToken, model.UserId, model.Email/*, model.UserName*/))
+                    if (!await GoogleValidatedAsync(model.AccessToken, model.UserId, model.Email, model.UserName))
                     {
                         return Unauthorized("Unable to register with google");
                     }
@@ -197,10 +197,10 @@ namespace Api.Controllers
             {
                 FirstName = model.FirstName.ToLower(),
                 LastName = model.LastName.ToLower(),
-                UserName = model.UserId,
+                ExternalUserName = model.UserName,
                 Provider = model.Provider,
                 Email = model.Email,
-                //UserName = model.UserName
+                UserName = model.UserId
             };
 
             var result = await _userManager.CreateAsync(userToAdd);
@@ -375,7 +375,7 @@ namespace Api.Controllers
             return true;
         }
 
-        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId, string email  /*, string userName*/)
+        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId, string email, string userName)
         {
             var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
             if (!payload.Audience.Equals(_config["Google:ClientId"]))

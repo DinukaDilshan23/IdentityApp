@@ -8,8 +8,9 @@ import { map, of, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmEmail } from '../shared/models/account/confirmEmail';
 import { ResetPassword } from '../shared/models/account/resetPassword';
-import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
+import { RegisterWithExternalGoogle } from '../shared/models/account/registerWithExternalGoogle';
 import { LoginWithExternal } from '../shared/models/account/loginWithExternal';
+import { RegisterWithExternalFacebook } from '../shared/models/account/registerWithExternalFacebook';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class AccountService {
     return this.http.post(`${environment.appUrl}/api/account/register`, model);
   }
 
-  registerWithThirdParty(model: RegisterWithExternal) {
+  registerWithThirdPartyGoogle(model: RegisterWithExternalGoogle) {
     return this.http.post<User>(`${environment.appUrl}/api/account/register-with-third-party`, model).pipe(
       map((user: User) => {
         if (user) {
@@ -77,6 +78,17 @@ export class AccountService {
         }
       })
     );
+  }
+
+  registerWithThirdPartyFacebook(model: RegisterWithExternalFacebook) {
+    return this.http.post<User>(`${environment.appUrl}/api/account/register-with-third-party`, model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user);
+        }
+      })
+    );
+
   }
 
   confirmEmail(model: ConfirmEmail) {

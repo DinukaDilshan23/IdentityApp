@@ -113,8 +113,7 @@ export class RegisterComponent implements OnInit {
 
   private async googleCallBack(response: CredentialResponse) {
     const decodedToken: any = jwtDecode(response.credential);
-    console.log(decodedToken);
-    this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}&email=${decodedToken.email}/*&userName=${decodedToken.name}*/`);
+    this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}&email=${decodedToken.email}&userName=${decodedToken.name}`);
     //this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&Email=${decodedToken.email}`);
     //this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}`);
     //this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}`);

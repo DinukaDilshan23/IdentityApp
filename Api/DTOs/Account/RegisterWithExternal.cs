@@ -15,7 +15,7 @@ namespace Api.DTOs.Account
         [Required]
         public string UserId { get; set; }
         public string Email { get; set; }
-        //public string UserName { get; set; }
+        public string UserName { get; set; }
         [Required]
         public string Provider { get; set; }
     }
