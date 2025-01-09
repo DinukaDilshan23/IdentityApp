@@ -18,6 +18,8 @@ export class RegisterWithThirdPartyComponent implements OnInit {
   provider: string | null = null;
   access_token: string | null = null;
   userId: string | null = null;
+  email: string | null = null;
+  //userName: string | null = null;
   errorMessages: string[] = [];
 
   constructor(private accountService: AccountService,
@@ -36,6 +38,7 @@ export class RegisterWithThirdPartyComponent implements OnInit {
               this.provider = this.activatedRoute.snapshot.paramMap.get('provider');
               this.access_token = params.get('access_token');
               this.userId = params.get('userId');
+              this.email = params.get('email');
 
               if (this.provider && this.access_token && this.userId &&
                 (this.provider === 'facebook' || this.provider === 'google')) {
@@ -62,11 +65,11 @@ export class RegisterWithThirdPartyComponent implements OnInit {
     this.submitted = true;
     this.errorMessages = [];
 
-    if (this.registerForm.valid && this.userId && this.access_token && this.provider) {
+    if (this.registerForm.valid && this.userId && this.access_token && this.provider && this.email /* && this.userName*/) {
       const firstName = this.registerForm.get('firstName')?.value;
       const lastName = this.registerForm.get('lastName')?.value;
 
-      const model = new RegisterWithExternal(firstName, lastName, this.userId, this.access_token, this.provider);
+      const model = new RegisterWithExternal(firstName, lastName, this.userId, this.access_token, this.provider, this.email /*, this.userName*/);
       this.accountService.registerWithThirdParty(model).subscribe({
         next: _ => {
           this.router.navigateByUrl('/');

@@ -32,7 +32,6 @@ namespace Api.Controllers
         {
             var members = await _userManager.Users
                 .Where(x => x.UserName != SD.AdminUserName)
-                // this is a projection
                 .Select(member => new MemberViewDto
                 {
                     Id = member.Id,

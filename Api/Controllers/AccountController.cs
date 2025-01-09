@@ -97,7 +97,7 @@ namespace Api.Controllers
             {
                 try
                 {
-                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    if (!GoogleValidatedAsyncInLogin(model.AccessToken, model.UserId).GetAwaiter().GetResult())
                     {
                         return Unauthorized("Unable to login with google");
                     }
@@ -134,7 +134,6 @@ namespace Api.Controllers
                 Email = model.Email.ToLower(),
             };
 
-            // creates a user inside our AspNetUsers table inside our database
             var result = await _userManager.CreateAsync(userToAdd, model.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
 
@@ -175,7 +174,8 @@ namespace Api.Controllers
             {
                 try
                 {
-                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                   // var abc = await GoogleValidatedAsync(model.AccessToken, model.UserId);
+                    if (!await GoogleValidatedAsync(model.AccessToken, model.UserId, model.Email/*, model.UserName*/))
                     {
                         return Unauthorized("Unable to register with google");
                     }
@@ -199,6 +199,8 @@ namespace Api.Controllers
                 LastName = model.LastName.ToLower(),
                 UserName = model.UserId,
                 Provider = model.Provider,
+                Email = model.Email,
+                //UserName = model.UserName
             };
 
             var result = await _userManager.CreateAsync(userToAdd);
@@ -373,10 +375,42 @@ namespace Api.Controllers
             return true;
         }
 
-        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
+        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId, string email  /*, string userName*/)
         {
             var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
+            if (!payload.Audience.Equals(_config["Google:ClientId"]))
+            {
+                return false;
+            }
 
+            if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
+            {
+                return false;
+            }
+
+            if (payload.ExpirationTimeSeconds == null)
+            {
+                return false;
+            }
+
+            DateTime now = DateTime.Now.ToUniversalTime();
+            DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
+            if (now > expiration)
+            {
+                return false;
+            }
+
+            if (!payload.Subject.Equals(userId))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> GoogleValidatedAsyncInLogin(string accessToken, string userId)
+        {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
             if (!payload.Audience.Equals(_config["Google:ClientId"]))
             {
                 return false;
